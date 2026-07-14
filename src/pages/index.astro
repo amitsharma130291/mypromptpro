@@ -82,6 +82,9 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   .capture-form input[type="email"]:focus{outline:3px solid rgba(255,215,207,.5)}
   .capture-form .btn{flex:0 0 auto}
   .capture-fine{font-size:.85rem; color:rgba(255,255,255,.72); margin-top:14px}
+  .capture-msg{display:none; margin-top:16px; font-size:1rem; font-weight:600; color:#fff; min-height:24px}
+  .capture-msg.success{color:#a7f3d0}
+  .capture-msg.error{color:#fca5a5}
 </style>
 
 <!-- ================= HEADER ================= -->
@@ -240,12 +243,59 @@ import BaseLayout from '../layouts/BaseLayout.astro';
         (ConvertKit uses `email_address`; Mailchimp uses `EMAIL`).
         Currently points to a harmless placeholder so the page is safe to host.
       -->
-      <form class="capture-form" action="#" method="post" onsubmit="return false;">
+      <form class="capture-form" id="subscribe-form" novalidate>
         <label class="visually-hidden" for="email">Your email address</label>
-        <input type="email" id="email" name="email_address" placeholder="you@school.edu" autocomplete="email" required />
-        <button class="btn btn-primary" type="submit">Notify me →</button>
+        <input type="email" id="email" name="email" placeholder="you@school.edu" autocomplete="email" required />
+        <button class="btn btn-primary" type="submit" id="subscribe-btn">Send my 5 free prompts →</button>
       </form>
-      <p class="capture-fine">No spam, ever. One email when your profession launches. Unsubscribe any time.</p>
+      <p class="capture-msg" id="capture-msg"></p>
+      <p class="capture-fine">No spam, ever. Unsubscribe any time.</p>
+
+      <script>
+        (function () {
+          const form = document.getElementById('subscribe-form');
+          const btn  = document.getElementById('subscribe-btn');
+          const msg  = document.getElementById('capture-msg');
+
+          form.addEventListener('submit', async function (e) {
+            e.preventDefault();
+            const email = form.email.value.trim();
+            if (!email) return;
+
+            btn.disabled = true;
+            btn.textContent = 'Sending…';
+            msg.style.display = 'none';
+            msg.className = 'capture-msg';
+
+            try {
+              const res = await fetch('/subscribe', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email }),
+              });
+              const data = await res.json();
+
+              if (res.ok && data.success) {
+                form.style.display = 'none';
+                msg.textContent = '✓ Check your inbox — your 5 free prompts are on their way!';
+                msg.classList.add('success');
+              } else {
+                msg.textContent = data.error || 'Something went wrong. Please try again.';
+                msg.classList.add('error');
+                btn.disabled = false;
+                btn.textContent = 'Send my 5 free prompts →';
+              }
+            } catch {
+              msg.textContent = 'Network error — please check your connection and try again.';
+              msg.classList.add('error');
+              btn.disabled = false;
+              btn.textContent = 'Send my 5 free prompts →';
+            }
+
+            msg.style.display = 'block';
+          });
+        })();
+      </script>
     </div>
   </div>
 </section>
