@@ -426,12 +426,58 @@ Start with a genuine strength, name ONE clear next step as a
         that provider (ConvertKit: `email_address`; Mailchimp: `EMAIL`).
         Placeholder action keeps the page safe to host as-is.
       -->
-      <form class="signup-form" action="#" method="post" onsubmit="return false;">
+      <form class="signup-form" id="teachers-subscribe-form" novalidate>
         <label class="visually-hidden" for="email">Your email address</label>
-        <input type="email" id="email" name="email_address" placeholder="you@school.edu" autocomplete="email" required />
-        <button class="btn btn-blue" type="submit">Send my 5 free prompts →</button>
+        <input type="email" id="email" name="email" placeholder="you@school.edu" autocomplete="email" required />
+        <button class="btn btn-blue" type="submit" id="teachers-subscribe-btn">Send my 5 free prompts →</button>
       </form>
+      <p class="signup-msg" id="teachers-signup-msg" style="display:none;font-weight:600;margin-top:14px;font-size:.97rem;"></p>
       <p class="signup-fine">No spam, ever. Unsubscribe any time.</p>
+
+      <script>
+        (function () {
+          const form = document.getElementById('teachers-subscribe-form');
+          const btn  = document.getElementById('teachers-subscribe-btn');
+          const msg  = document.getElementById('teachers-signup-msg');
+
+          form.addEventListener('submit', async function (e) {
+            e.preventDefault();
+            const email = form.email.value.trim();
+            if (!email) return;
+
+            btn.disabled = true;
+            btn.textContent = 'Sending\u2026';
+            msg.style.display = 'none';
+
+            try {
+              const res = await fetch('/subscribe', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email }),
+              });
+              const data = await res.json();
+
+              if (res.ok && data.success) {
+                form.style.display = 'none';
+                msg.textContent = '\u2713 Check your inbox \u2014 your 5 free prompts are on their way!';
+                msg.style.color = '#2E9E6B';
+              } else {
+                msg.textContent = data.error || 'Something went wrong. Please try again.';
+                msg.style.color = '#e53935';
+                btn.disabled = false;
+                btn.textContent = 'Send my 5 free prompts \u2192';
+              }
+            } catch {
+              msg.textContent = 'Network error \u2014 please try again.';
+              msg.style.color = '#e53935';
+              btn.disabled = false;
+              btn.textContent = 'Send my 5 free prompts \u2192';
+            }
+
+            msg.style.display = 'block';
+          });
+        })();
+      </script>
     </div>
   </div>
 </section>

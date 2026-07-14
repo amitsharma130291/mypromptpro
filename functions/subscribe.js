@@ -53,7 +53,14 @@ export async function onRequestPost({ request, env }) {
       `INSERT INTO subscribers (email, source) VALUES (?, ?) ON CONFLICT(email) DO NOTHING`
     ).bind(email, 'homepage').run();
   } catch (err) {
-    console.error('D1 insert error:', err);
+    console.error('D1 insert error:', String(err));
+    const errMsg = String(err);
+    if (errMsg.includes('no such table')) {
+      return new Response(JSON.stringify({ error: 'DB not set up yet — run schema.sql in D1 console.' }), { status: 500, headers });
+    }
+    if (errMsg.includes('DB') || errMsg.includes('binding')) {
+      return new Response(JSON.stringify({ error: 'DB binding missing — check Cloudflare Pages > Settings > Bindings.' }), { status: 500, headers });
+    }
     return new Response(JSON.stringify({ error: 'Something went wrong. Please try again.' }), { status: 500, headers });
   }
 
