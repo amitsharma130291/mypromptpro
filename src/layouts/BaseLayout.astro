@@ -104,6 +104,15 @@ const ogImageAbsolute = ogImage?.startsWith('http') ? ogImage : `https://mypromp
   .section-head p{color:var(--slate); font-size:1.08rem}
   .kicker{font-family:var(--font-display); font-weight:600; text-transform:uppercase; letter-spacing:.12em; font-size:.8rem; color:var(--coral); margin-bottom:10px}
 </style>
+
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-K401PN6DLH"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-K401PN6DLH');
+</script>
 </head>
 <body>
   <slot />
