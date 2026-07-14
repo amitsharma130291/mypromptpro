@@ -1,0 +1,4 @@
+User-agent: *
+Disallow:
+
+Sitemap: https://mypromptpro.com/sitemap-index.xml
