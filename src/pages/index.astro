@@ -1,0 +1,273 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+<BaseLayout
+  title="MyPromptPro — Engineered AI Prompt Systems for Professionals"
+  description="Profession-specific ChatGPT prompt libraries that give you your evenings back. Built by practitioners, tested on real work, with a real before &amp; after for every prompt. Teachers available now."
+  canonical="https://mypromptpro.com/"
+  ogImage="/assets/cover-teachers.png"
+/>
+
+<style>
+  /* ---------- header / nav ---------- */
+  .nav-links{display:none; gap:26px; align-items:center}
+  .nav-links a{color:var(--slate); font-weight:500; font-size:.98rem}
+  .nav-links a:hover{color:var(--blue-dark); text-decoration:none}
+  @media(min-width:820px){ .nav-links{display:flex} }
+
+  /* ---------- hero ---------- */
+  .hero{position:relative; overflow:hidden; padding:64px 0 40px}
+  .hero::before{content:""; position:absolute; top:-180px; right:-160px; width:520px; height:520px; border-radius:50%; background:radial-gradient(circle at center, rgba(45,108,223,.12), transparent 62%); pointer-events:none}
+  .hero::after{content:""; position:absolute; bottom:-160px; left:-120px; width:420px; height:420px; border-radius:50%; background:radial-gradient(circle at center, rgba(255,107,92,.10), transparent 62%); pointer-events:none}
+  .hero .wrap{position:relative}
+  .eyebrow{display:inline-flex; align-items:center; gap:8px; background:var(--blue-wash); color:var(--blue-dark); font-weight:600; font-size:.86rem; padding:7px 14px; border-radius:999px; margin-bottom:20px; letter-spacing:.01em}
+  .eyebrow .dot{width:8px; height:8px; border-radius:50%; background:var(--green); box-shadow:0 0 0 4px rgba(46,158,107,.18)}
+  .hero h1{max-width:16ch}
+  .hero h1 .accent{color:var(--blue)}
+  .hero .lede{font-size:1.2rem; color:var(--slate); max-width:52ch; margin-bottom:28px}
+  .hero-cta{display:flex; flex-wrap:wrap; gap:14px; margin-bottom:18px}
+  .hero-note{font-size:.92rem; color:var(--slate)}
+  .hero-note b{color:var(--ink)}
+
+  /* ---------- profession grid ---------- */
+  #professions{background:var(--white); border-top:1px solid var(--mist); border-bottom:1px solid var(--mist)}
+  .grid{display:grid; grid-template-columns:1fr; gap:18px}
+  @media(min-width:560px){ .grid{grid-template-columns:repeat(2,1fr)} }
+  @media(min-width:900px){ .grid{grid-template-columns:repeat(3,1fr)} }
+
+  .card{
+    position:relative; background:var(--white); border:1px solid var(--mist); border-radius:var(--radius);
+    padding:24px 22px; display:flex; flex-direction:column; gap:12px; min-height:180px;
+    transition:transform .16s ease, box-shadow .16s ease, border-color .16s ease;
+  }
+  .card .icon{width:46px; height:46px; border-radius:12px; display:grid; place-items:center; font-size:1.5rem}
+  .card h3{margin:0; color:var(--blue-dark)}
+  .card .desc{color:var(--slate); font-size:.96rem; margin:0; flex:1}
+  .card .tag{align-self:flex-start; font-family:var(--font-display); font-weight:600; font-size:.74rem; letter-spacing:.04em; text-transform:uppercase; padding:5px 11px; border-radius:999px}
+  .tag-now{background:var(--green); color:#fff}
+  .tag-soon{background:var(--blue-wash); color:var(--slate)}
+  .card .cta-row{display:flex; align-items:center; gap:6px; font-family:var(--font-display); font-weight:600; font-size:.95rem; color:var(--coral)}
+
+  /* live (teachers) card */
+  a.card.live{border-color:rgba(46,158,107,.5); box-shadow:var(--shadow-sm)}
+  a.card.live:hover{transform:translateY(-4px); box-shadow:var(--shadow-md); border-color:var(--green); text-decoration:none}
+  a.card.live .icon{background:var(--blue-wash)}
+  a.card.live:hover .cta-row{gap:10px}
+
+  /* coming-soon card */
+  .card.soon{background:#fcfbf8}
+  .card.soon .icon{background:#f1f3f5}
+  .card.soon h3{color:var(--slate)}
+
+  /* ---------- why section ---------- */
+  #why .features{display:grid; grid-template-columns:1fr; gap:26px}
+  @media(min-width:760px){ #why .features{grid-template-columns:repeat(3,1fr)} }
+  .feature{background:var(--white); border:1px solid var(--mist); border-radius:var(--radius); padding:28px 24px; box-shadow:var(--shadow-sm)}
+  .feature .fi{width:52px; height:52px; border-radius:14px; display:grid; place-items:center; font-size:1.5rem; margin-bottom:16px}
+  .fi-blue{background:var(--blue-wash)} .fi-green{background:rgba(46,158,107,.14)} .fi-coral{background:var(--coral-wash)}
+  .feature h3{margin-bottom:8px}
+  .feature p{color:var(--slate); font-size:.98rem; margin:0}
+
+  /* ---------- email capture ---------- */
+  #capture{background:linear-gradient(135deg,var(--blue-dark),var(--blue)); color:#fff}
+  #capture h2{color:#fff}
+  #capture .section-head p{color:rgba(255,255,255,.86)}
+  #capture .kicker{color:#ffd7cf}
+  .capture-card{max-width:560px; margin:0 auto; text-align:center}
+  .capture-form{display:flex; flex-wrap:wrap; gap:12px; justify-content:center; margin-top:8px}
+  .capture-form input[type="email"]{
+    flex:1 1 260px; min-width:0; padding:15px 18px; border-radius:var(--radius); border:1px solid rgba(255,255,255,.3);
+    font-family:var(--font-body); font-size:1rem; background:rgba(255,255,255,.96); color:var(--ink);
+  }
+  .capture-form input[type="email"]:focus{outline:3px solid rgba(255,215,207,.5)}
+  .capture-form .btn{flex:0 0 auto}
+  .capture-fine{font-size:.85rem; color:rgba(255,255,255,.72); margin-top:14px}
+</style>
+
+<!-- ================= HEADER ================= -->
+<header class="site">
+  <div class="wrap navbar">
+    <a class="brand" href="/" aria-label="MyPromptPro home">
+      <span class="mark">MP</span> My<b>Prompt</b>Pro
+    </a>
+    <nav class="nav-links" aria-label="Primary">
+      <a href="#professions">Professions</a>
+      <a href="#why">Why us</a>
+      <a href="/teachers/">For Teachers</a>
+      <a href="#capture">Get updates</a>
+    </nav>
+  </div>
+</header>
+
+<!-- ================= HERO ================= -->
+<section class="hero">
+  <div class="wrap">
+    <span class="eyebrow"><span class="dot"></span> Teacher edition available now</span>
+    <h1>Engineered AI prompts for the professionals <span class="accent">who never clock off.</span></h1>
+    <p class="lede">MyPromptPro builds profession-specific ChatGPT prompt libraries that turn hours of writing into a five-minute job. Each one is built by people who do the work, tested on real tasks, and shows you a real before &amp; after for every prompt.</p>
+    <div class="hero-cta">
+      <a class="btn btn-primary" href="/teachers/">Explore the Teacher edition →</a>
+      <a class="btn btn-ghost" href="#professions">See all professions</a>
+    </div>
+    <p class="hero-note"><b>AI won't replace you.</b> But the professionals who use it well are getting their evenings back — while everyone else keeps grinding.</p>
+  </div>
+</section>
+
+<!-- ================= PROFESSION GRID ================= -->
+<section id="professions">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="kicker">Choose your profession</div>
+      <h2>One system, tuned for the work you actually do</h2>
+      <p>Every edition goes deep on one profession instead of spreading thin. The Teacher edition is live today; the rest are on the way. Add your email below and we'll tell you the day yours lands.</p>
+    </div>
+
+    <div class="grid">
+      <!-- LIVE: Teachers -->
+      <a class="card live" href="/teachers/">
+        <div class="icon">🍎</div>
+        <span class="tag tag-now">Available now</span>
+        <h3>Teachers</h3>
+        <p class="desc">75 prompts for elementary &amp; special-education teachers — lesson plans, grading, IEP paperwork, and parent emails. Get your evenings back.</p>
+        <span class="cta-row">Open the Teacher edition →</span>
+      </a>
+
+      <!-- COMING SOON (from the 9-product roadmap) -->
+      <div class="card soon">
+        <div class="icon">👥</div>
+        <span class="tag tag-soon">Coming soon</span>
+        <h3>HR Managers</h3>
+        <p class="desc">Job descriptions, onboarding, performance reviews, employee comms, and policy — drafted properly, in your voice.</p>
+      </div>
+
+      <div class="card soon">
+        <div class="icon">💼</div>
+        <span class="tag tag-soon">Coming soon</span>
+        <h3>Sales Reps</h3>
+        <p class="desc">Cold emails, prospecting, follow-up sequences, and objection handling that sound like you, not a template.</p>
+      </div>
+
+      <div class="card soon">
+        <div class="icon">⚖️</div>
+        <span class="tag tag-soon">Coming soon</span>
+        <h3>Lawyers</h3>
+        <p class="desc">Contract drafting, research summaries, client communication, and billing narratives — engineered for the billable hour.</p>
+      </div>
+
+      <div class="card soon">
+        <div class="icon">📊</div>
+        <span class="tag tag-soon">Coming soon</span>
+        <h3>Accountants</h3>
+        <p class="desc">Client emails, engagement letters, plain-English explanations, and workflow docs for the busy season.</p>
+      </div>
+
+      <div class="card soon">
+        <div class="icon">🏥</div>
+        <span class="tag tag-soon">Coming soon</span>
+        <h3>Nurses</h3>
+        <p class="desc">Handoffs, patient education, documentation, and care-plan drafting that saves time without cutting corners.</p>
+      </div>
+
+      <div class="card soon">
+        <div class="icon">💰</div>
+        <span class="tag tag-soon">Coming soon</span>
+        <h3>Financial Advisors</h3>
+        <p class="desc">Client reviews, market updates, meeting prep, and compliant communications — drafted in minutes.</p>
+      </div>
+
+      <div class="card soon">
+        <div class="icon">📱</div>
+        <span class="tag tag-soon">Coming soon</span>
+        <h3>Social Media Managers</h3>
+        <p class="desc">Content calendars, captions, campaign angles, and reporting — a month of posts before your coffee's cold.</p>
+      </div>
+
+      <div class="card soon">
+        <div class="icon">🧠</div>
+        <span class="tag tag-soon">Coming soon</span>
+        <h3>Therapists</h3>
+        <p class="desc">Session notes, psychoeducation handouts, and admin — the paperwork handled so you can be present.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= WHY ================= -->
+<section id="why">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="kicker">Why MyPromptPro</div>
+      <h2>Not another list of prompts you'll never use</h2>
+      <p>Most "AI prompt packs" are a thin list of one-liners you paste, get something generic, and quietly abandon. Everything we build is the opposite.</p>
+    </div>
+
+    <div class="features">
+      <div class="feature">
+        <div class="fi fi-blue">🛠️</div>
+        <h3>Engineered, not generic</h3>
+        <p>Every prompt tells the AI who to be, what you need, and exactly how to format the answer — so the output is ready to use, not a first draft you have to rescue.</p>
+      </div>
+      <div class="feature">
+        <div class="fi fi-green">🔍</div>
+        <h3>A real before &amp; after</h3>
+        <p>Every prompt shows you the manual grind it replaces and the actual output it produces — so you know precisely what you're getting before you type a word.</p>
+      </div>
+      <div class="feature">
+        <div class="fi fi-coral">👩‍🏫</div>
+        <h3>Built by practitioners</h3>
+        <p>Drafted and tested by people who do the work, on real tasks — with privacy and "you stay in control" baked into every prompt. Works in ChatGPT and Claude, free or paid.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= EMAIL CAPTURE ================= -->
+<section id="capture">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="kicker">Be first to know</div>
+      <h2>Your edition is coming. Get the drop.</h2>
+      <p>We're rolling out one profession at a time. Leave your email and we'll send you the moment yours is ready — plus a free set of starter prompts to try today.</p>
+    </div>
+
+    <div class="capture-card">
+      <!--
+        EMAIL CAPTURE FORM
+        ==================
+        TODO (wire before launch): set `action` to your email provider's form
+        endpoint (e.g. ConvertKit / Mailchimp / Beehiiv embedded form action URL)
+        and confirm the input `name` matches what that provider expects
+        (ConvertKit uses `email_address`; Mailchimp uses `EMAIL`).
+        Currently points to a harmless placeholder so the page is safe to host.
+      -->
+      <form class="capture-form" action="#" method="post" onsubmit="return false;">
+        <label class="visually-hidden" for="email">Your email address</label>
+        <input type="email" id="email" name="email_address" placeholder="you@school.edu" autocomplete="email" required />
+        <button class="btn btn-primary" type="submit">Notify me →</button>
+      </form>
+      <p class="capture-fine">No spam, ever. One email when your profession launches. Unsubscribe any time.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= FOOTER ================= -->
+<footer class="site">
+  <div class="wrap">
+    <div class="cols">
+      <a class="brand" href="/">
+        <span class="mark">MP</span> My<b>Prompt</b>Pro
+      </a>
+      <nav class="fnav" aria-label="Footer">
+        <a href="#professions">Professions</a>
+        <a href="#why">Why us</a>
+        <a href="/teachers/">For Teachers</a>
+        <a href="#capture">Get updates</a>
+      </nav>
+    </div>
+    <div class="legal">
+      <span>© 2026 MyPromptPro · mypromptpro.com</span>
+      <!-- TODO: replace with a real monitored inbox before launch -->
+      <span>Questions? <a href="mailto:hello@mypromptpro.com" style="color:#8fb4f5">hello@mypromptpro.com</a> <em>[placeholder — confirm contact email]</em></span>
+    </div>
+  </div>
+</footer>

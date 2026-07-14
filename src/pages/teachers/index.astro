@@ -1,0 +1,459 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+---
+<BaseLayout
+  title="75 ChatGPT Prompts for Teachers — Get Your Evenings Back | MyPromptPro"
+  description="Still grading at 9pm? 75 engineered ChatGPT prompts for elementary &amp; special-education teachers — lesson plans, grading, IEP paperwork, parent emails. A real before &amp; after for every prompt. Get your evenings back."
+  canonical="https://mypromptpro.com/teachers/"
+  ogImage="/assets/cover-teachers.png"
+/>
+
+<style>
+  /* ============================================================
+     Teachers sales page — page-specific styles.
+     Brand vars & resets come from BaseLayout.
+     ============================================================ */
+
+  /* price token: renders the --price CSS var wherever placed */
+  :root{
+    --price:"\0024 19";  /* $19 launch price. Change to "\0024 29" after 10 reviews. */
+    --maxw:1080px;
+  }
+  .price::before{content:var(--price)}
+  .narrow{max-width:720px}
+
+  /* ---------- buttons (page overrides) ---------- */
+  .btn-lg{font-size:1.15rem; padding:19px 38px}
+  .btn{font-size:1.05rem; padding:16px 30px; line-height:1.25}
+
+  /* ---------- header ---------- */
+  header.site{background:rgba(251,249,244,.9)}
+  .navbar{height:64px}
+  .nav-right{display:flex; align-items:center; gap:16px}
+  .nav-back{display:none; color:var(--slate); font-weight:500; font-size:.95rem}
+  @media(min-width:640px){ .nav-back{display:inline} }
+  .nav-buy{font-family:var(--font-display); font-weight:600; font-size:.95rem; background:var(--coral); color:#fff; padding:9px 18px; border-radius:10px}
+  .nav-buy:hover{text-decoration:none; background:#f4594a}
+
+  /* ---------- hero ---------- */
+  .hero{position:relative; overflow:hidden; padding:56px 0 20px}
+  .hero::before{content:""; position:absolute; top:-160px; left:-140px; width:480px; height:480px; border-radius:50%; background:radial-gradient(circle, rgba(255,107,92,.12), transparent 62%); pointer-events:none}
+  .hero::after{content:""; position:absolute; bottom:-200px; right:-160px; width:520px; height:520px; border-radius:50%; background:radial-gradient(circle, rgba(45,108,223,.10), transparent 62%); pointer-events:none}
+  .hero .wrap{position:relative}
+  .hero-grid{display:grid; grid-template-columns:1fr; gap:34px; align-items:center}
+  @media(min-width:900px){ .hero-grid{grid-template-columns:1.05fr .95fr; gap:44px} }
+
+  .hand{font-family:var(--font-hand); font-weight:700; color:var(--coral); font-size:1.7rem; line-height:1; margin-bottom:6px; display:block}
+  .hero h1 .accent{color:var(--coral)}
+  .hero .lede{font-size:1.22rem; color:var(--slate); max-width:46ch; margin:14px 0 26px}
+  .hero-cta{display:flex; flex-wrap:wrap; gap:14px; align-items:center; margin-bottom:16px}
+  .hero-sub-cta{font-size:.98rem; color:var(--slate)}
+  .hero-sub-cta a{font-weight:600}
+  .trust-row{display:flex; flex-wrap:wrap; gap:8px 18px; margin-top:22px; font-size:.9rem; color:var(--slate)}
+  .trust-row span{display:inline-flex; align-items:center; gap:7px}
+  .trust-row .ck{color:var(--green); font-weight:700}
+
+  .hero-visual{position:relative; justify-self:center; max-width:400px; width:100%}
+  .hero-visual img{width:100%; border-radius:18px; box-shadow:var(--shadow-lg); border:1px solid var(--mist)}
+  .hero-visual .save-badge{
+    position:absolute; top:-14px; right:-10px; background:var(--green); color:#fff;
+    font-family:var(--font-display); font-weight:700; font-size:.9rem; padding:10px 16px; border-radius:12px;
+    box-shadow:0 10px 24px rgba(46,158,107,.35); transform:rotate(4deg); text-align:center; line-height:1.2;
+  }
+
+  /* ---------- section overrides ---------- */
+  section{padding:52px 0}
+  .section-head{margin:0 auto 38px}
+
+  /* ---------- story ---------- */
+  #story{background:var(--white); border-top:1px solid var(--mist); border-bottom:1px solid var(--mist)}
+  #story p{font-size:1.12rem}
+  #story .pullquote{
+    font-family:var(--font-display); font-weight:600; font-size:clamp(1.3rem,3vw,1.7rem); color:var(--blue-dark);
+    line-height:1.3; border-left:5px solid var(--coral); padding:6px 0 6px 22px; margin:30px 0;
+  }
+  #story .proof-line{display:inline-flex; align-items:center; gap:10px; background:rgba(46,158,107,.12); color:var(--green); font-weight:600; padding:10px 18px; border-radius:12px; font-size:1rem; margin-top:8px}
+
+  /* ---------- before / after ---------- */
+  #proof .ba{display:grid; grid-template-columns:1fr; gap:18px; margin-top:8px}
+  @media(min-width:760px){ #proof .ba{grid-template-columns:1fr 1fr; align-items:stretch} }
+  .ba-card{border-radius:var(--radius); padding:24px 22px; border:1px solid var(--mist)}
+  .ba-before{background:var(--grey-before)}
+  .ba-after{background:var(--white); border-left:5px solid var(--green); box-shadow:var(--shadow-sm)}
+  .ba-card .ba-label{font-family:var(--font-display); font-weight:600; text-transform:uppercase; letter-spacing:.08em; font-size:.82rem; margin-bottom:12px; display:flex; align-items:center; gap:8px}
+  .ba-before .ba-label{color:var(--slate)}
+  .ba-after .ba-label{color:var(--green)}
+  .ba-card p{margin:0 0 .7rem; font-size:1rem}
+  .ba-before p{color:var(--slate)}
+  .ba-card p:last-child{margin-bottom:0}
+  .ba-after .out{font-size:.97rem; line-height:1.6}
+  .ba-after .out strong{color:var(--blue-dark)}
+  .ba-mid{text-align:center; margin-top:26px}
+  .ba-mid .big{font-family:var(--font-display); font-weight:700; font-size:clamp(1.4rem,4vw,2rem); color:var(--green)}
+  .ba-mid .sub{color:var(--slate)}
+
+  /* prompt block */
+  .promptblock{background:var(--white); border:1px solid var(--mist); border-left:4px solid var(--blue); border-radius:var(--radius-sm); overflow:hidden; margin:22px auto 0; max-width:760px; box-shadow:var(--shadow-sm)}
+  .promptblock .pb-head{background:var(--blue-wash); padding:9px 16px; font-family:var(--font-display); font-weight:600; font-size:.78rem; letter-spacing:.06em; color:var(--blue-dark); text-transform:uppercase}
+  .promptblock pre{margin:0; padding:18px 16px; font-family:var(--font-mono); font-size:.86rem; line-height:1.6; color:var(--ink); white-space:pre-wrap; word-break:break-word}
+  .promptblock .brk{color:var(--blue); font-weight:500}
+
+  /* ---------- inside grid ---------- */
+  #inside{background:var(--white); border-top:1px solid var(--mist); border-bottom:1px solid var(--mist)}
+  .inside-grid{display:grid; grid-template-columns:1fr; gap:16px}
+  @media(min-width:560px){ .inside-grid{grid-template-columns:1fr 1fr} }
+  @media(min-width:900px){ .inside-grid{grid-template-columns:repeat(3,1fr)} }
+  .sect{background:var(--cream); border:1px solid var(--mist); border-radius:var(--radius); padding:22px 20px; display:flex; flex-direction:column; gap:8px; border-top:4px solid var(--dot)}
+  .sect .n{font-family:var(--font-display); font-weight:600; font-size:.78rem; text-transform:uppercase; letter-spacing:.06em; color:var(--slate)}
+  .sect h3{margin:0; color:var(--blue-dark)}
+  .sect .count{font-family:var(--font-display); font-weight:700; color:var(--dot); font-size:.9rem}
+  .sect p{margin:0; color:var(--slate); font-size:.95rem}
+  .extras{margin-top:26px; background:var(--blue-wash); border-radius:var(--radius); padding:24px 22px}
+  .extras h3{margin:0 0 14px}
+  .extras ul{list-style:none; margin:0; padding:0; display:grid; grid-template-columns:1fr; gap:10px}
+  @media(min-width:640px){ .extras ul{grid-template-columns:1fr 1fr} }
+  .extras li{display:flex; gap:10px; align-items:flex-start; font-size:.98rem; color:var(--ink)}
+  .extras li .ck{color:var(--green); font-weight:700; flex:0 0 auto}
+  .value-line{text-align:center; margin-top:22px; font-family:var(--font-display); font-weight:600; color:var(--green); font-size:1.05rem}
+
+  /* sped highlight */
+  .sped{margin-top:26px; background:linear-gradient(135deg,#f3eefb,#fbfaff); border:1px solid #e4d9f4; border-left:5px solid var(--plum); border-radius:var(--radius); padding:24px 22px}
+  .sped h3{color:var(--plum)}
+  .sped p{margin:0; color:var(--ink)}
+
+  /* ---------- fit block ---------- */
+  #fit .fit-grid{display:grid; grid-template-columns:1fr; gap:18px}
+  @media(min-width:720px){ #fit .fit-grid{grid-template-columns:1fr 1fr} }
+  .fit-card{border-radius:var(--radius); padding:26px 24px; border:1px solid var(--mist)}
+  .fit-yes{background:rgba(46,158,107,.07); border-color:rgba(46,158,107,.4)}
+  .fit-no{background:#fcfbf8}
+  .fit-card h3{display:flex; align-items:center; gap:10px}
+  .fit-yes h3{color:var(--green)}
+  .fit-no h3{color:var(--slate)}
+  .fit-card ul{list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:10px}
+  .fit-card li{display:flex; gap:10px; align-items:flex-start; font-size:1rem}
+  .fit-yes li::before{content:"✓"; color:var(--green); font-weight:700; flex:0 0 auto}
+  .fit-no li::before{content:"—"; color:var(--slate); font-weight:700; flex:0 0 auto}
+  .fit-note{text-align:center; max-width:640px; margin:24px auto 0; color:var(--slate); font-size:.98rem}
+
+  /* ---------- trust ---------- */
+  #trust{background:var(--white); border-top:1px solid var(--mist); border-bottom:1px solid var(--mist)}
+  .trust-grid{display:grid; grid-template-columns:1fr; gap:22px}
+  @media(min-width:760px){ .trust-grid{grid-template-columns:repeat(3,1fr)} }
+  .tcard{background:var(--cream); border:1px solid var(--mist); border-radius:var(--radius); padding:26px 22px}
+  .tcard .ti{width:50px; height:50px; border-radius:14px; background:rgba(46,158,107,.14); display:grid; place-items:center; font-size:1.4rem; margin-bottom:14px}
+  .tcard h3{margin-bottom:8px}
+  .tcard p{margin:0; color:var(--slate); font-size:.97rem}
+
+  /* ---------- final CTA ---------- */
+  #buy{background:linear-gradient(135deg,var(--blue-dark),var(--blue)); color:#fff; text-align:center}
+  #buy h2{color:#fff; max-width:18ch; margin:0 auto .5em}
+  #buy .lede{color:rgba(255,255,255,.9); font-size:1.18rem; max-width:44ch; margin:0 auto 30px}
+  #buy .buy-cta{display:flex; flex-direction:column; align-items:center; gap:14px}
+  #buy .btn-primary{box-shadow:0 12px 30px rgba(255,107,92,.4)}
+  #buy .secondary-link{color:#ffd7cf; font-weight:600; font-size:1rem}
+  #buy .secondary-link:hover{color:#fff}
+  #buy .buy-fine{color:rgba(255,255,255,.78); font-size:.92rem; margin-top:18px}
+  #buy .price-pill{display:inline-block; background:rgba(255,255,255,.14); border:1px solid rgba(255,255,255,.24); border-radius:999px; padding:7px 18px; font-family:var(--font-display); font-weight:600; margin-bottom:8px}
+
+  /* ---------- email capture ---------- */
+  #signup{background:var(--cream); text-align:center}
+  .signup-card{max-width:560px; margin:0 auto; background:var(--white); border:1px solid var(--mist); border-radius:var(--radius); padding:34px 26px; box-shadow:var(--shadow-sm)}
+  .signup-card h3{font-size:1.35rem; margin-bottom:8px}
+  .signup-card p{color:var(--slate); margin-bottom:20px}
+  .signup-form{display:flex; flex-wrap:wrap; gap:12px; justify-content:center}
+  .signup-form input[type="email"]{flex:1 1 260px; min-width:0; padding:15px 18px; border-radius:var(--radius); border:1px solid var(--mist); font-family:var(--font-body); font-size:1rem; background:var(--white); color:var(--ink)}
+  .signup-form input[type="email"]:focus{outline:3px solid rgba(45,108,223,.25); border-color:var(--blue)}
+  .signup-fine{font-size:.85rem; color:var(--slate); margin-top:14px; margin-bottom:0}
+</style>
+
+<!-- ================= HEADER ================= -->
+<header class="site">
+  <div class="wrap navbar">
+    <a class="brand" href="/" aria-label="MyPromptPro home">
+      <span class="mark">MP</span> My<b>Prompt</b>Pro
+    </a>
+    <div class="nav-right">
+      <a class="nav-back" href="/">← All professions</a>
+      <a class="nav-buy" href="#buy">Get the prompts</a>
+    </div>
+  </div>
+</header>
+
+<!-- ================= HERO ================= -->
+<section class="hero">
+  <div class="wrap">
+    <div class="hero-grid">
+      <div class="hero-copy">
+        <span class="hand">finally —</span>
+        <h1>Still grading at 9pm? <span class="accent">Get your evenings back.</span></h1>
+        <p class="lede">75 engineered ChatGPT prompts for elementary &amp; special-education teachers — lesson plans, grading, IEP paperwork, and parent emails, drafted in minutes instead of hours.</p>
+        <div class="hero-cta">
+          <a class="btn btn-primary btn-lg" href="https://amitverse58.gumroad.com/l/vrctd">Get the 75 Prompts →</a>
+        </div>
+        <p class="hero-sub-cta">Also on <a href="[TPT_LISTING_URL]">Teachers Pay Teachers →</a></p>
+        <div class="trust-row">
+          <span><span class="ck">✓</span> Works in ChatGPT &amp; Claude (free too)</span>
+          <span><span class="ck">✓</span> Instant download</span>
+          <span><span class="ck">✓</span> A real before &amp; after for all 75</span>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <div class="save-badge">SAVE 7+<br>HRS / WK</div>
+        <img src="/assets/cover-teachers.png" alt="75 ChatGPT Prompts for Elementary &amp; Special Education Teachers — product cover" />
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= STORY ================= -->
+<section id="story">
+  <div class="wrap narrow">
+    <div class="kicker">The 8:40pm you know too well</div>
+    <h2>You became a teacher to teach — not to lose every evening to paperwork.</h2>
+    <p>It's 8:40pm. You're staring at a blank lesson plan for tomorrow, you still have 26 report-card comments to write, and there's a parent email you've drafted three times and hate every version of. You didn't sign up for this part. Nobody did.</p>
+    <p>You've heard AI can help. Maybe you tried ChatGPT once, typed <em>"write a lesson on fractions,"</em> got something bland and generic, and quietly decided it wasn't worth it. Here's the honest truth: <strong>the problem was never you, and it was never ChatGPT. It was the prompt.</strong> A vague ask gets a vague answer.</p>
+    <div class="pullquote">AI won't replace teachers. But teachers who use AI well will replace the ones who don't — not by being smarter, by being less exhausted.</div>
+    <p>Every one of these 75 prompts is the good version, already written. It tells the AI exactly who to be, what you need, and how to format the answer — so you copy, paste, swap in your details, and get something you could hand a substitute. You bring the class; the prompt brings the engineering.</p>
+    <p class="proof-line">⏱️ Teachers who use AI weekly save about <strong>&nbsp;6 hours a week</strong>&nbsp; — roughly six school weeks a year (Gallup / Walton Family Foundation, 2025).</p>
+  </div>
+</section>
+
+<!-- ================= BEFORE / AFTER PROOF ================= -->
+<section id="proof">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="kicker">See exactly what you get</div>
+      <h2>One prompt. A real before &amp; after.</h2>
+      <p>This is the report-card comment prompt (P16). Every one of the 75 comes with a worked example like this — so you know what you're getting before you type a word.</p>
+    </div>
+
+    <div class="promptblock">
+      <div class="pb-head">The prompt — copy, paste, swap the brackets</div>
+      <pre>You are a <span class="brk">[grade level]</span> teacher who writes feedback that is
+warm, specific, and growth-focused.
+
+Write a report card comment for a student based on these notes:
+- What they did well: <span class="brk">[1–2 specifics]</span>
+- What needs work: <span class="brk">[1 specific next step]</span>
+- Student's first name: <span class="brk">[name]</span>
+
+Start with a genuine strength, name ONE clear next step as a
+"try this," and end warm. 3–4 sentences. No jargon.</pre>
+    </div>
+
+    <div class="ba">
+      <div class="ba-card ba-before">
+        <div class="ba-label">😩 Before — 9pm, comment #24 of 28</div>
+        <p>"Great effort this term, keep it up!"</p>
+        <p>"A pleasure to have in class. Great effort!"</p>
+        <p>"Good work this quarter. Keep trying hard!"</p>
+        <p style="margin-top:14px; font-style:italic;">Every comment blurring into the same three words. Forty minutes in and they've stopped sounding like you.</p>
+      </div>
+      <div class="ba-card ba-after">
+        <div class="ba-label">✅ After — 20 seconds, sounds like you</div>
+        <p class="out"><strong>Maya has grown into one of the most thoughtful writers in our class this term.</strong> Her personal narrative about her grandmother's kitchen used specific, sensory details that pulled the reader right in. As a next step, I'd love to see her try reading her drafts aloud to catch spots where a sentence runs long — it's the one habit that will take her writing from good to genuinely strong. She should be proud of how far she's come.</p>
+      </div>
+    </div>
+
+    <div class="ba-mid">
+      <div class="big">A whole class of comments → done before you'd have finished five</div>
+      <div class="sub">And not one of them sounds copy-pasted.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= WHAT'S INSIDE ================= -->
+<section id="inside">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="kicker">Everything you get</div>
+      <h2>75 prompts across the 6 parts of your week</h2>
+      <p>Organized the way your week actually runs — plus a full 8-layer system that makes them work from the first five minutes.</p>
+    </div>
+
+    <div class="inside-grid">
+      <div class="sect" style="--dot:var(--blue)">
+        <div class="n">Section 1</div>
+        <h3>Lesson Planning</h3>
+        <div class="count">15 prompts</div>
+        <p>A full standards-aligned lesson a sub could teach, week-at-a-glance unit maps, hooks that grab 8-year-olds, and the reteach plan for when it didn't stick.</p>
+      </div>
+      <div class="sect" style="--dot:var(--green)">
+        <div class="n">Section 2</div>
+        <h3>Grading &amp; Feedback</h3>
+        <div class="count">12 prompts</div>
+        <p>Turn a rubric score into a warm, specific comment, build a feedback bank before you grade, and diagnose the whole class from an error pattern.</p>
+      </div>
+      <div class="sect" style="--dot:var(--coral)">
+        <div class="n">Section 3</div>
+        <h3>Parent Communication</h3>
+        <div class="count">12 prompts</div>
+        <p>The positive note home, the firm-but-kind behavior message, the de-escalation reply to an angry email, and the back-to-school letter that builds trust.</p>
+      </div>
+      <div class="sect" style="--dot:var(--amber)">
+        <div class="n">Section 4</div>
+        <h3>Differentiated Instruction</h3>
+        <div class="count">12 prompts</div>
+        <p>One lesson at three levels, the same passage at three reading levels, IEP-goal-aligned activities, choice boards, ELL scaffolds, and social stories.</p>
+      </div>
+      <div class="sect" style="--dot:var(--blue-dark)">
+        <div class="n">Section 5</div>
+        <h3>Classroom Management</h3>
+        <div class="count">12 prompts</div>
+        <p>Positively-framed expectations, function-based behavior interventions, ready-to-say de-escalation scripts, and the plan to reset a class that's drifted.</p>
+      </div>
+      <div class="sect" style="--dot:var(--plum)">
+        <div class="n">Section 6</div>
+        <h3>Admin &amp; Reports</h3>
+        <div class="count">12 prompts</div>
+        <p>Report card comments from rough notes, incident documentation that holds up, IEP &amp; conference prep, and a DonorsChoose request that gets funded.</p>
+      </div>
+    </div>
+
+    <div class="extras">
+      <h3>Plus the full system that makes them work</h3>
+      <ul>
+        <li><span class="ck">✓</span> <span><strong>The Quick Win</strong> — 3 prompts that pay off in your first 5 minutes.</span></li>
+        <li><span class="ck">✓</span> <span><strong>The Time Audit</strong> — where your hours go, and how many you get back.</span></li>
+        <li><span class="ck">✓</span> <span><strong>The Customization Guide</strong> — set your teacher persona once; every prompt goes personal.</span></li>
+        <li><span class="ck">✓</span> <span><strong>Modern AI Workflows</strong> — Projects, Custom GPTs &amp; Gems that make your setup permanent.</span></li>
+        <li><span class="ck">✓</span> <span><strong>Workflow Maps</strong> — prompts chained into whole routines (a full Sunday planning run).</span></li>
+        <li><span class="ck">✓</span> <span><strong>6 image-generation prompts</strong> — posters, visual schedules, certificate art.</span></li>
+        <li><span class="ck">✓</span> <span><strong>Mistakes to Avoid</strong> — the 5 ways teachers get burned by AI, and how to dodge each.</span></li>
+        <li><span class="ck">✓</span> <span><strong>A printable Cheat Sheet</strong> — all 75 prompts on one page to pin by your desk.</span></li>
+      </ul>
+    </div>
+
+    <div class="sped">
+      <h3>🧩 A serious special-education layer — the part the $7 packs never touch</h3>
+      <p>Three of the 75 core prompts draft an FBA-informed BIP skeleton, a measurable IEP goal in proper "Given… will… as measured by…" form, and a PLAAFP narrative. On top of that you get a <strong>bonus Special Education Paperwork &amp; Data Kit (7 more prompts, free on top of the 75)</strong> — progress notes, IEP-at-a-glance, a parent-friendly explainer, and more. Every one asks for your real baseline before it drafts, and flags plainly that it's a draft for your team to finalize — not a legal document.</p>
+    </div>
+
+    <div class="value-line">75 prompts · an 8-layer system · a 162-page toolkit · every prompt tested in ChatGPT &amp; Claude</div>
+  </div>
+</section>
+
+<!-- ================= FIT BLOCK ================= -->
+<section id="fit">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="kicker">Is this the right edition for you?</div>
+      <h2>Read this first — I'd rather you skip it than buy the wrong thing.</h2>
+      <p>This edition goes deep on K-5 and special education on purpose. That focus is the whole point.</p>
+    </div>
+
+    <div class="fit-grid">
+      <div class="fit-card fit-yes">
+        <h3>✅ Perfect for you if you teach</h3>
+        <ul>
+          <li>Elementary — grades K-5, general classroom</li>
+          <li>Special education — resource, self-contained, or inclusion/co-teaching</li>
+          <li>Students on an IEP or 504 (goals, PLAAFP, accommodations vs. modifications)</li>
+          <li>English language learners (scaffolds that don't water down the goal)</li>
+          <li>You're brand-new — or a K-5 veteran who just wants the evenings back</li>
+          <li>Middle-grade (6-8): most prompts still work with a grade swap</li>
+        </ul>
+      </div>
+      <div class="fit-card fit-no">
+        <h3>🔶 Not built for this edition (yet)</h3>
+        <ul>
+          <li>High school — AP, IB, SAT/ACT prep, labs, research papers</li>
+          <li>College / university — syllabi, thesis feedback, publishing</li>
+          <li>Vocational / technical / trade &amp; clinical instruction</li>
+          <li>Fully-online teaching — Canvas/Moodle, LMS, discussion boards</li>
+          <li>Adult education / GED / workplace-ESL</li>
+        </ul>
+      </div>
+    </div>
+    <p class="fit-note">None of that is a knock on those subjects — this edition simply focuses on K-5 and special education so it can go genuinely deep instead of spreading thin. Editions for those contexts are on the way. If you teach one, save your money for the right one.</p>
+  </div>
+</section>
+
+<!-- ================= TRUST ================= -->
+<section id="trust">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="kicker">Built responsibly</div>
+      <h2>You stay the teacher. The AI is just your fastest assistant.</h2>
+    </div>
+    <div class="trust-grid">
+      <div class="tcard">
+        <div class="ti">🔒</div>
+        <h3>Privacy baked in</h3>
+        <p>Every student-facing prompt uses first names or initials only — never a full roster or sensitive records. The guide tells you exactly how, in plain language.</p>
+      </div>
+      <div class="tcard">
+        <div class="ti">✋</div>
+        <h3>You stay in control</h3>
+        <p>ChatGPT drafts, you decide. Every output is yours to read and personalize before it reaches a child or a parent. It never invents a score or a fact.</p>
+      </div>
+      <div class="tcard">
+        <div class="ti">💻</div>
+        <h3>Works with what you have</h3>
+        <p>Copy-paste ready. Works in ChatGPT and Claude, free or paid. Instant download, plus an editable Google Doc lesson-plan template. Yours forever.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= FINAL CTA / BUY ================= -->
+<section id="buy">
+  <div class="wrap">
+    <div class="kicker" style="color:#ffd7cf">The promise</div>
+    <h2>Get your evenings back. Start tonight.</h2>
+    <p class="lede">Run the three Quick Win prompts tonight. If the first lesson plan — or the first report-card comment that actually sounds like you — doesn't save you real time this week, the guide walks you through fixing it.</p>
+    <div class="buy-cta">
+      <span class="price-pill">Launch price <span class="price"></span> · was $29</span>
+      <a class="btn btn-primary btn-lg" href="https://amitverse58.gumroad.com/l/vrctd">Get the 75 Prompts →</a>
+      <a class="secondary-link" href="[TPT_LISTING_URL]">Also on Teachers Pay Teachers →</a>
+      <p class="buy-fine">Instant download · Works in ChatGPT &amp; Claude · A real before &amp; after for all 75</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= EMAIL CAPTURE ================= -->
+<section id="signup">
+  <div class="wrap">
+    <div class="signup-card">
+      <h3>Not ready to buy? Grab 5 free prompts.</h3>
+      <p>Get a free starter set — the 5 ChatGPT prompts every teacher needs — plus a heads-up when new editions and discounts drop.</p>
+      <!--
+        EMAIL CAPTURE FORM
+        ==================
+        TODO (wire before launch): set `action` to your email provider's form
+        endpoint (ConvertKit / Mailchimp / Beehiiv). Match the input `name` to
+        that provider (ConvertKit: `email_address`; Mailchimp: `EMAIL`).
+        Placeholder action keeps the page safe to host as-is.
+      -->
+      <form class="signup-form" action="#" method="post" onsubmit="return false;">
+        <label class="visually-hidden" for="email">Your email address</label>
+        <input type="email" id="email" name="email_address" placeholder="you@school.edu" autocomplete="email" required />
+        <button class="btn btn-blue" type="submit">Send my 5 free prompts →</button>
+      </form>
+      <p class="signup-fine">No spam, ever. Unsubscribe any time.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= FOOTER ================= -->
+<footer class="site">
+  <div class="wrap">
+    <div class="cols">
+      <a class="brand" href="/">
+        <span class="mark">MP</span> My<b>Prompt</b>Pro
+      </a>
+      <nav class="fnav" aria-label="Footer">
+        <a href="/">All professions</a>
+        <a href="#inside">What's inside</a>
+        <a href="#fit">Is it for me?</a>
+        <a href="https://amitverse58.gumroad.com/l/vrctd">Get the prompts</a>
+      </nav>
+    </div>
+    <div class="legal">
+      <span>© 2026 MyPromptPro · mypromptpro.com/teachers</span>
+      <!-- TODO: replace with a real monitored inbox before launch -->
+      <span>Questions? <a href="mailto:hello@mypromptpro.com" style="color:#8fb4f5">hello@mypromptpro.com</a> <em>[placeholder — confirm contact email]</em></span>
+    </div>
+  </div>
+</footer>

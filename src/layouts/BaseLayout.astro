@@ -1,0 +1,110 @@
+---
+const { title, description, canonical, ogImage } = Astro.props;
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>{title}</title>
+<meta name="description" content={description} />
+<link rel="canonical" href={canonical} />
+
+<!-- Open Graph / social preview -->
+<meta property="og:type" content="website" />
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
+<meta property="og:url" content={canonical} />
+{ogImage && <meta property="og:image" content={ogImage} />}
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&family=Inter:wght@400;500;600&family=Caveat:wght@600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+<style>
+  /* ============================================================
+     MyPromptPro — shared brand system
+     CSS variables, font declarations, body reset, shared layout.
+     Page-specific styles live in each page's <style> block.
+     ============================================================ */
+  :root{
+    --blue:#2D6CDF;   --blue-dark:#1B3A6B;   --blue-wash:#EAF1FD;
+    --coral:#FF6B5C;  --coral-wash:#FFE9E6;
+    --green:#2E9E6B;  --amber:#F4A522;       --plum:#7A5AA6;
+    --ink:#26303B;    --slate:#5B6875;       --mist:#D9E0E8;
+    --cream:#FBF9F4;  --white:#FFFFFF;
+    --grey-before:#F1F3F5;
+    --font-display:'Poppins',system-ui,sans-serif;
+    --font-body:'Inter',system-ui,sans-serif;
+    --font-hand:'Caveat',cursive;
+    --font-mono:'JetBrains Mono',ui-monospace,monospace;
+    --radius:14px; --radius-sm:10px;
+    --shadow-sm:0 2px 8px rgba(27,58,107,.06);
+    --shadow-md:0 10px 30px rgba(27,58,107,.10);
+    --shadow-lg:0 24px 60px rgba(27,58,107,.14);
+    --maxw:1120px;
+  }
+
+  *,*::before,*::after{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    margin:0; background:var(--cream); color:var(--ink);
+    font-family:var(--font-body); font-size:17px; line-height:1.65;
+    -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
+  }
+  h1,h2,h3,h4{font-family:var(--font-display); color:var(--blue-dark); line-height:1.15; margin:0 0 .5em}
+  h1{font-size:clamp(2rem,6vw,3.35rem); font-weight:700; letter-spacing:-.02em}
+  h2{font-size:clamp(1.6rem,4.2vw,2.4rem); font-weight:700; letter-spacing:-.01em}
+  h3{font-size:1.2rem; font-weight:600}
+  p{margin:0 0 1rem}
+  a{color:var(--blue); text-decoration:none}
+  a:hover{text-decoration:underline}
+  img{max-width:100%; display:block}
+  .wrap{width:100%; max-width:var(--maxw); margin:0 auto; padding:0 22px}
+
+  /* ---------- buttons ---------- */
+  .btn{
+    display:inline-flex; align-items:center; gap:.5em; justify-content:center;
+    font-family:var(--font-display); font-weight:600; font-size:1.02rem;
+    padding:15px 28px; border-radius:var(--radius); border:1px solid transparent;
+    cursor:pointer; transition:transform .15s ease, box-shadow .15s ease, background .15s ease;
+    text-align:center; text-decoration:none;
+  }
+  .btn:hover{text-decoration:none; transform:translateY(-2px)}
+  .btn-primary{background:var(--coral); color:#fff; box-shadow:0 8px 20px rgba(255,107,92,.30)}
+  .btn-primary:hover{background:#f4594a}
+  .btn-ghost{background:var(--white); color:var(--blue-dark); border-color:var(--mist); box-shadow:var(--shadow-sm)}
+  .btn-ghost:hover{border-color:var(--blue)}
+  .btn-blue{background:var(--blue); color:#fff; box-shadow:0 8px 20px rgba(45,108,223,.28)}
+  .btn-blue:hover{background:#255fce}
+
+  /* ---------- header ---------- */
+  header.site{position:sticky; top:0; z-index:50; background:rgba(251,249,244,.86); backdrop-filter:blur(10px); border-bottom:1px solid var(--mist)}
+  .navbar{display:flex; align-items:center; justify-content:space-between; height:66px}
+  .brand{display:flex; align-items:center; gap:10px; font-family:var(--font-display); font-weight:700; font-size:1.2rem; color:var(--blue-dark)}
+  .brand:hover{text-decoration:none}
+  .brand .mark{width:30px; height:30px; border-radius:8px; background:linear-gradient(135deg,var(--blue),var(--blue-dark)); display:grid; place-items:center; color:#fff; font-size:.95rem; font-weight:700}
+  .brand b{color:var(--blue)}
+
+  /* ---------- footer ---------- */
+  footer.site{background:var(--blue-dark); color:rgba(255,255,255,.72); padding:44px 0 30px}
+  footer.site .cols{display:flex; flex-wrap:wrap; gap:28px; justify-content:space-between; align-items:flex-start}
+  footer.site .brand{color:#fff}
+  footer.site .brand b{color:#8fb4f5}
+  footer.site .fnav{display:flex; flex-wrap:wrap; gap:20px}
+  footer.site .fnav a{color:rgba(255,255,255,.78); font-size:.95rem}
+  footer.site .fnav a:hover{color:#fff}
+  footer.site .legal{border-top:1px solid rgba(255,255,255,.14); margin-top:26px; padding-top:20px; font-size:.85rem; display:flex; flex-wrap:wrap; gap:8px 18px; justify-content:space-between}
+
+  /* ---------- utilities ---------- */
+  .visually-hidden{position:absolute!important; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap}
+  section{padding:56px 0}
+  .section-head{text-align:center; max-width:640px; margin:0 auto 40px}
+  .section-head p{color:var(--slate); font-size:1.08rem}
+  .kicker{font-family:var(--font-display); font-weight:600; text-transform:uppercase; letter-spacing:.12em; font-size:.8rem; color:var(--coral); margin-bottom:10px}
+</style>
+</head>
+<body>
+  <slot />
+</body>
+</html>
